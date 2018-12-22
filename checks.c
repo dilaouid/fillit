@@ -6,7 +6,7 @@
 /*   By: dilaouid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 17:57:39 by dilaouid          #+#    #+#             */
-/*   Updated: 2018/12/22 17:32:14 by dilaouid         ###   ########.fr       */
+/*   Updated: 2018/12/22 17:45:45 by dilaouid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	check_board(char **line)
 	y = 0;
 	while (line[y])
 	{
-		if (ft_countchar(line[y], '.') + ft_countchar(line[y], '#') != 4)
+		if ((ft_countchar(line[y], '.') + ft_countchar(line[y], '#') != 4)
+				|| ft_strlen(line[y]) != 5)
 		{
 			if (line[y][0] != '\n')
 				return (0);

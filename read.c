@@ -6,7 +6,7 @@
 /*   By: dilaouid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/22 13:35:57 by dilaouid          #+#    #+#             */
-/*   Updated: 2018/12/22 17:36:41 by dilaouid         ###   ########.fr       */
+/*   Updated: 2018/12/22 17:48:24 by dilaouid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ char	**create_tetriminos(char *file, char **board)
 	while (get_next_line(fd, &line) > 0)
 	{
 		board[y] = ft_strdup(line);
-		if (ft_strlen(board[y]) == 4 || ft_strlen(line) == 0)
-			board[y][ft_strlen(line)] = '\n';
-		printf("%s", board[y]);
+		board[y][ft_strlen(line)] = '\n';
 		y++;
 		free(line);
 	}
