@@ -6,7 +6,7 @@
 /*   By: dilaouid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/22 13:35:57 by dilaouid          #+#    #+#             */
-/*   Updated: 2018/12/23 15:36:58 by dilaouid         ###   ########.fr       */
+/*   Updated: 2018/12/23 23:16:45 by dilaouid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	**create_tetriminos(char *file, char **board)
 	int		y;
 	int		nbtetriminos;
 	int		fd;
-
+	int		nbline;
 	y = 0;
 	fd = open(file, O_RDONLY);
 	board = (char **)malloc(sizeof(char *) * 104);
@@ -35,15 +35,14 @@ char	**create_tetriminos(char *file, char **board)
 	y = 0;
 	while (board[y] != NULL)
 		y++;
+	nbline = y;
 	printf("Number of lines: "GREEN"%d\n"RESET, y);
 	while (y < 26)
-	{
-		ft_memdel((void **)board[y]);
-		y++;
-	}
+		ft_memdel((void **)board[y++]);
 	nbtetriminos = check_tetrinumber(board);
 	printf("Nb of possible tetriminos: "GREEN"%d\n"RESET, nbtetriminos);
-	if (check_board(board) == 0 || check_validtetriminos(board) == 0)
+	if (check_board(board) == 0 || check_validtetriminos(board) == 0
+			|| check_rows(board, nbline) == 0)
 	{
 		ft_putendl(RED"error"RESET);
 		exit(0);

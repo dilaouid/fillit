@@ -6,22 +6,33 @@
 /*   By: dilaouid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 17:57:39 by dilaouid          #+#    #+#             */
-/*   Updated: 2018/12/23 15:48:06 by dilaouid         ###   ########.fr       */
+/*   Updated: 2018/12/23 23:18:20 by dilaouid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static int	valid_size(int shapesize)
+int	check_rows(char **line, int nbline)
 {
-	int i;
+	int rows;
+	int y;
 
-	i = 0;
-	while (i < shapesize)
-		i += 4;
-	if (i == shapesize)
-		return (1);
-	return (0);
+	y = 0;
+	while (y < nbline)
+	{
+		rows = 0;
+		while (ft_strlen(line[y]) == 5)
+		{
+			rows++;
+			y++;
+			if (y == nbline)
+				return (1);
+		}
+		if (rows != 4)
+			return (0);
+		y++;
+	}
+	return (1);
 }
 
 int	check_board(char **line)
@@ -32,6 +43,8 @@ int	check_board(char **line)
 	ft_putendl(RESET"\n-------CHECK IF THE BOARD IS VALID ...-------");
 	x = 0;
 	y = 0;
+	if (check_emptyboard(line) == 0 || line[y][x] == '\n')
+		return (0);
 	while (line[y])
 	{
 		if ((ft_countchar(line[y], '.') + ft_countchar(line[y], '#') != 4)
@@ -43,6 +56,32 @@ int	check_board(char **line)
 		y++;
 	}
 	ft_putendl(GREEN"CHECK BOARD OK"RESET);
+	return (1);
+}
+
+int	check_emptyboard(char **line)
+{
+	int y;
+	int x;
+	unsigned long dot;
+
+	y = 0;
+	dot = 0;
+	while (line[y])
+	{
+		x = 0;
+		while (line[y][x])
+		{
+			if (line[y][x] == '.')
+				dot++;
+			x++;
+		}
+		if (line[y][0] == '\n')
+			dot = 0;
+		if (y % 4 == 0 && y > 0 && dot == 16)
+			return (0);
+		y++;
+	}
 	return (1);
 }
 
@@ -75,7 +114,7 @@ int	check_validtetriminos(char **line)
 		}
 		y++;
 	}
-	if (valid_size(shapesize) == 0)
+	if (shapesize % 4 != 0)
 		return (0);
 	ft_putendl(GREEN"VALID TETRIMINOS"RESET);
 	return (1);

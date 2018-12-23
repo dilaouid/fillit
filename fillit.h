@@ -6,7 +6,7 @@
 /*   By: dilaouid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/22 14:06:16 by dilaouid          #+#    #+#             */
-/*   Updated: 2018/12/23 12:56:09 by dilaouid         ###   ########.fr       */
+/*   Updated: 2018/12/23 23:14:03 by dilaouid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ int	check_board(char **line);
 int	check_validtetriminos(char **line);
 int	check_tetrinumber(char **line);
 char	**create_tetriminos(char *file, char **board);
+int		check_emptyboard(char **line);
+int		check_rows(char **line, int nbline);
 
 #endif
