@@ -6,7 +6,7 @@
 /*   By: dilaouid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 17:57:39 by dilaouid          #+#    #+#             */
-/*   Updated: 2018/12/23 23:18:20 by dilaouid         ###   ########.fr       */
+/*   Updated: 2018/12/24 19:01:10 by dilaouid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ int	check_rows(char **line, int nbline)
 		{
 			rows++;
 			y++;
-			if (y == nbline)
+			if (y == nbline && rows == 4)
 				return (1);
+			else if (y == nbline && rows != 4)
+				return (0);
 		}
 		if (rows != 4)
 			return (0);
@@ -78,7 +80,7 @@ int	check_emptyboard(char **line)
 		}
 		if (line[y][0] == '\n')
 			dot = 0;
-		if (y % 4 == 0 && y > 0 && dot == 16)
+		if (dot == 16)
 			return (0);
 		y++;
 	}
@@ -114,7 +116,7 @@ int	check_validtetriminos(char **line)
 		}
 		y++;
 	}
-	if (shapesize % 4 != 0)
+	if (shapesize % 4 != 0 || shapesize >= y)
 		return (0);
 	ft_putendl(GREEN"VALID TETRIMINOS"RESET);
 	return (1);
