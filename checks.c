@@ -6,29 +6,31 @@
 /*   By: dilaouid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 17:57:39 by dilaouid          #+#    #+#             */
-/*   Updated: 2018/12/23 23:18:20 by dilaouid         ###   ########.fr       */
+/*   Updated: 2018/12/28 20:47:38 by dilaouid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int	check_links(char **board, int *link, int x, int y)
+int					check_links(char **line, int x, int y, int *link)
 {
-	if (y > 0 && board[y - 1][x] == '#')
+	if (line[y][x] == '\n')
+		return (*link);
+	if (y > 0 && line[y - 1][x] == '#')
 		*link += 1;
-	if (board[y + 1][x] && board[y + 1][x] == '#')
+	if (line[y + 1] && line[y + 1][x] == '#')
 		*link += 1;
-	if (board[y][x + 1] && board[y][x + 1] == '#')
+	if (x > 0 && line[y][x - 1] == '#')
 		*link += 1;
-	if (x > 0 && board[y][x - 1] == '#')
+	if (line[x + 1] && line[y][x + 1] == '#')
 		*link += 1;
 	return (*link);
 }
 
-int	check_rows(char **line, int nbline)
+int					check_rows(char **line, int nbline)
 {
-	int rows;
-	int y;
+	int				rows;
+	int				y;
 
 	y = 0;
 	while (y < nbline)
@@ -38,8 +40,10 @@ int	check_rows(char **line, int nbline)
 		{
 			rows++;
 			y++;
-			if (y == nbline)
+			if (y == nbline && rows == 4)
 				return (1);
+			else if (y == nbline && rows != 4)
+				return (0);
 		}
 		if (rows != 4)
 			return (0);
@@ -48,12 +52,11 @@ int	check_rows(char **line, int nbline)
 	return (1);
 }
 
-int	check_board(char **line)
+int					check_board(char **line)
 {
-	int x;
-	int y;
+	int				x;
+	int				y;
 
-	ft_putendl(RESET"\n-------CHECK IF THE BOARD IS VALID ...-------");
 	x = 0;
 	y = 0;
 	if (check_emptyboard(line) == 0 || line[y][x] == '\n')
@@ -64,19 +67,22 @@ int	check_board(char **line)
 				|| ft_strlen(line[y]) != 5)
 		{
 			if (line[y][0] != '\n')
+			{
+				ft_putstr(line[y]);
 				return (0);
+			}
 		}
 		y++;
 	}
-	ft_putendl(GREEN"CHECK BOARD OK"RESET);
+	printf("test\n");
 	return (1);
 }
 
-int	check_emptyboard(char **line)
+int					check_emptyboard(char **line)
 {
-	int y;
-	int x;
-	unsigned long dot;
+	int				y;
+	int				x;
+	int				dot;
 
 	y = 0;
 	dot = 0;
@@ -91,60 +97,37 @@ int	check_emptyboard(char **line)
 		}
 		if (line[y][0] == '\n')
 			dot = 0;
-		if (y % 4 == 0 && y > 0 && dot == 16)
+		if (dot == 16)
 			return (0);
 		y++;
 	}
 	return (1);
 }
 
-int	check_validtetriminos(char **line)
+int					check_validtetriminos(char **line)
 {
-	int x;
-	int y;
-	int shapesize;
-	int link;
+	int				x;
+	int				y;
+	int				shapesize;
+	int				link;
 
-	ft_putendl("\n-------CHECK IF THE TETRIMINOS ARE VALID ...-------");
 	y = 0;
-	link = 0;
 	shapesize = 0;
+	link = 0;
 	while (line[y])
 	{
 		x = 0;
 		while (line[y][x])
 		{
-			if (line[y][x] == '#')
-			{
+			if (line[y][x] == '#' && check_links(line, x, y, &link))
 				shapesize++;
-				check_links(line, &link, x, y);
-			}
 			x++;
 		}
-		if (line[y][0] == '\n' && link != 6 && link != 8)
+		y++;
+		if ((line[y] && line[y][0] == '\n') && (link != 6 && link != 8))
 			return (0);
-		else if (line[y][0] == '\n')
+		else if (line[y] && line[y][0] == '\n')
 			link = 0;
-		y++;
 	}
-	if (shapesize % 4 != 0)
-		return (0);
-	ft_putendl(GREEN"VALID TETRIMINOS"RESET);
-	return (1);
-}
-
-int	check_tetrinumber(char **line)
-{
-	int y;
-	int nb;
-
-	nb = 1;
-	y = 0;
-	while (line[y])
-	{
-		if (ft_strlen(line[y]) == 1)
-			nb++;
-		y++;
-	}
-	return (nb);
+	return (!(shapesize % 4 != 0 || shapesize > y || (link != 6 && link != 8)));
 }
