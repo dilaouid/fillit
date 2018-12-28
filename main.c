@@ -96,10 +96,10 @@ char	**resolv(char ***tetri, int nb)
 
 int		main(int argc, char **argv)
 {
-/*	char ***tetri = NULL; 
-	char **matrice;*/
+	char ***tetri = NULL; 
+	char **matrice;
 	int i;
-/*	int fd;*/
+	int fd;
 	char **board = NULL;
 	int nbtetri;
 
@@ -108,10 +108,10 @@ int		main(int argc, char **argv)
 	i = 0;
 	if (argc != 2)
 		return (0);
-/*	fd = open(argv[1], O_RDONLY);
-	if((tetri = ft_tetri(nbtetri, fd)) == NULL)
+	fd = open(argv[1], O_RDONLY);
+	if ((tetri = ft_tetri(nbtetri, fd)) == NULL)
 		return (0);
 	matrice = resolv(tetri, nbtetri);
-	ft_print(matrice);*/
+	ft_print(matrice);
 	exit(0);
 }

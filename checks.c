@@ -74,7 +74,6 @@ int					check_board(char **line)
 		}
 		y++;
 	}
-	printf("test\n");
 	return (1);
 }
 

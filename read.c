@@ -37,33 +37,21 @@ int				check_tetrinumber(char **line)
 static char		**fill_board(char **board, char *file, char *line, int *y)
 {
 	int			fd;
-	int			nb;
 
-	nb = 0;
 	fd = open(file, O_RDONLY);
-	board = (char **)malloc(sizeof(char *) * 129);
-	if (board == NULL)
+	board = (char **)malloc(sizeof(char *) * 130);
+	if (!board)
 		return (NULL);
-	while (get_next_line(fd, &line) > 0 && *y < 129)
+	while (get_next_line(fd, &line))
 	{
 		board[*y] = ft_strdup(line);
 		board[*y][ft_strlen(line)] = '\n';
-		*y += 1;
-		nb++;
-		printf("%d\n", *y);
 		free(line);
-		if (*y == 129)
-			break;
+		*y += 1;
+		if (*y == 130)
+			ft_error();
 	}
 	close(fd);
-	*y = 0;
-	while (*y < nb)
-	{
-		printf("Y = %d\n", *y);
-		ft_putstr(board[*y]);
-		*y += 1;
-	}
-	free(board[*y]);
 	return (board);
 }
 
@@ -76,13 +64,12 @@ char			**create_tetriminos(char *file, char **board)
 	y = 0;
 	line = NULL;
 	board = fill_board(board, file, line, &y);
+	y = 0;
+	while (board[y])
+		y++;
 	nbline = y;
 	while (y <= 129)
-	{
-		printf("qqqqqqq\n");
-		free(board[y]);
-		y++;
-	}
+		free(board[y++]);
 	if (check_board(board) == 0 || check_validtetriminos(board) == 0
 			|| check_rows(board, nbline) == 0)
 		ft_error();

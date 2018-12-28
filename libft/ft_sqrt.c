@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_sqrt.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dilaouid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aibatyrb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/14 16:08:12 by dilaouid          #+#    #+#             */
-/*   Updated: 2018/12/22 15:04:15 by dilaouid         ###   ########.fr       */
+/*   Created: 2018/12/22 13:35:57 by aibatyrb          #+#    #+#             */
+/*   Updated: 2018/12/28 20:52:22 by aibatyrb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include <unistd.h>
+#include <stdio.h>
 
-# include "libft.h"
-# include <stdlib.h>
-# include <unistd.h>
+int	ft_sqrt(int nb)
+{
+	int i;
+	int sq;
 
-# define BUFF_SIZE 42
-
-# define MALLCHECK(x) if (!x) return (-1);
-
-int		get_next_line(const int fd, char **line);
-#endif
+	i = 1;
+	sq = 1;
+	if (nb == 0)
+		return (0);
+	while (i * i < nb)
+		i++;
+	if ((nb % i) == 0)
+		return (i);
+	else
+		return (0);
+}
