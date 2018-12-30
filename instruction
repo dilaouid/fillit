@@ -1,5 +1,0 @@
-à ajouter :
-segfault dans le read pour check tetriminos
-(verifier si la case vérifiée existe est n'est pas null)
-(si x > 0 et x < ft_strlen(line)
-si y > 0 et line[y + 1] != NULL)

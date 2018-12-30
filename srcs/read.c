@@ -6,7 +6,7 @@
 /*   By: dilaouid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/22 13:35:57 by dilaouid          #+#    #+#             */
-/*   Updated: 2018/12/28 20:52:22 by dilaouid         ###   ########.fr       */
+/*   Updated: 2018/12/30 20:03:19 by aibatyrb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,23 @@ static char		**fill_board(char **board, char *file, char *line, int *y)
 	int			fd;
 
 	fd = open(file, O_RDONLY);
-	board = (char **)malloc(sizeof(char *) * 130);
-	if (!board)
+	if (!(board = ft_memalloc(sizeof(char *) * 130)))
 		return (NULL);
-	while (get_next_line(fd, &line))
+	while (get_next_line(fd, &line) > 0)
 	{
-		board[*y] = ft_strdup(line);
+		if (!line)
+			return (NULL);
+		board[*y] = ft_strnew(ft_strlen(line) + 1);
+		board[*y] = ft_strcpy(board[*y], line);
 		board[*y][ft_strlen(line)] = '\n';
-		free(line);
+		board[*y][ft_strlen(line) + 1] = '\0';
 		*y += 1;
-		if (*y == 130)
+		if (*y > 129)
 			ft_error();
+		free(line);
 	}
+	if (*y == 0)
+		ft_error();
 	close(fd);
 	return (board);
 }
@@ -64,12 +69,9 @@ char			**create_tetriminos(char *file, char **board)
 	y = 0;
 	line = NULL;
 	board = fill_board(board, file, line, &y);
-	y = 0;
-	while (board[y])
-		y++;
 	nbline = y;
-	while (y <= 129)
-		free(board[y++]);
+	while (y < 130)
+		ft_memdel((void **)board[y++]);
 	if (check_board(board) == 0 || check_validtetriminos(board) == 0
 			|| check_rows(board, nbline) == 0)
 		ft_error();

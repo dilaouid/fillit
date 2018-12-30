@@ -6,7 +6,7 @@
 #    By: dilaouid <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:08:29 by dilaouid          #+#    #+#              #
-#    Updated: 2018/11/25 12:37:55 by dilaouid         ###   ########.fr        #
+#    Updated: 2018/12/30 15:11:11 by dilaouid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,20 +23,19 @@ SRC = 	ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c 
 		ft_strsub.c ft_strtrim.c ft_tolower.c ft_tolower_ultimate.c ft_toupper.c ft_strnstr.c \
 		ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstdelone.c ft_countwords.c ft_toupper_ultimate.c \
 		ft_islower.c ft_isupper.c ft_countchar.c ft_strrev.c ft_lstnew.c \
-		ft_nbchiffres.c ft_strndup.c ft_strnlen.c
-
-INC =	libft.h
+		ft_nbchiffres.c ft_strndup.c ft_strnlen.c ft_sqrt.c get_next_line.c
 
 O =		$(SRC:.c=.o)
 
 all: $(NAME)
 
+CFLAGS = -Wall -Werror -Wextra
+
 $(NAME):	$(O)
-	gcc -Wall -Werror -Wextra -c $(SRC) $(INC)
 	ar rc $(NAME) $(O)
 
 clean:
-	/bin/rm -f $(O) libft.h.gch
+	/bin/rm -f $(O)
 
 fclean: clean
 	/bin/rm -f $(NAME)

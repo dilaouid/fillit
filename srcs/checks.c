@@ -6,7 +6,7 @@
 /*   By: dilaouid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 17:57:39 by dilaouid          #+#    #+#             */
-/*   Updated: 2018/12/28 20:47:38 by dilaouid         ###   ########.fr       */
+/*   Updated: 2018/12/30 14:44:07 by dilaouid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ int					check_links(char **line, int x, int y, int *link)
 {
 	if (line[y][x] == '\n')
 		return (*link);
-	if (y > 0 && line[y - 1][x] == '#')
+	if (y > 0 && line[y - 1][0] != '\n' && line[y - 1][x] == '#')
 		*link += 1;
-	if (line[y + 1] && line[y + 1][x] == '#')
+	if (line[y + 1] && line[y + 1][0] != '\n' && line[y + 1][x] == '#')
 		*link += 1;
 	if (x > 0 && line[y][x - 1] == '#')
 		*link += 1;
-	if (line[x + 1] && line[y][x + 1] == '#')
+	if (line[y][x + 1] != '\n' && line[y][x + 1] == '#')
 		*link += 1;
 	return (*link);
 }
@@ -67,10 +67,7 @@ int					check_board(char **line)
 				|| ft_strlen(line[y]) != 5)
 		{
 			if (line[y][0] != '\n')
-			{
-				ft_putstr(line[y]);
 				return (0);
-			}
 		}
 		y++;
 	}
@@ -128,5 +125,5 @@ int					check_validtetriminos(char **line)
 		else if (line[y] && line[y][0] == '\n')
 			link = 0;
 	}
-	return (!(shapesize % 4 != 0 || shapesize > y || (link != 6 && link != 8)));
+	return (!(shapesize % 4 != 0 || (link != 6 && link != 8)));
 }

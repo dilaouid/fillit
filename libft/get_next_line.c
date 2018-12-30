@@ -3,58 +3,80 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dilaouid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aibatyrb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/14 15:58:26 by dilaouid          #+#    #+#             */
-/*   Updated: 2018/12/22 13:35:06 by dilaouid         ###   ########.fr       */
+/*   Created: 2018/12/29 15:21:42 by aibatyrb          #+#    #+#             */
+/*   Updated: 2018/12/29 16:18:45 by aibatyrb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
 #include "libft.h"
+#include "get_next_line.h"
 
-static char	*biggerbuf(int const fd, char *buf, int *ret)
+char			*read_gnl(char **gnl, char *buf, int fd)
 {
-	char	tmp[BUFF_SIZE + 1];
-	char	*tmp2;
+	char		*tmp;
+	int			ret;
 
-	*ret = read(fd, tmp, BUFF_SIZE);
-	if (*ret < BUFF_SIZE && tmp[*ret -1] != '\n')
+	ret = 1;
+	while (!(ft_strchr(*gnl, '\n')) && ret)
 	{
-		tmp[*ret] = '\n';
-		tmp[*ret + 1] = '\0';
+		ret = read(fd, buf, BUFF_SIZE);
+		if (ret)
+		{
+			buf[ret] = '\0';
+			tmp = *gnl;
+			if (!(*gnl = ft_strjoin(*gnl, buf)))
+				return (NULL);
+			free(tmp);
+		}
 	}
-	else 
-		tmp[*ret] = '\0';
-	tmp2 = buf;
-	buf = ft_strjoin(buf, tmp);
-	ft_strdel(&tmp2);
-	return (buf);
+	free(buf);
+	return (*gnl);
 }
 
-int			get_next_line(int const fd, char **line)
+char			*stock_line(char **gnl)
 {
-	static char		*buf = NULL;
-	int				ret;
-	char			*str;
+	char		*buf;
+	char		*newline;
+	char		*tmp;
 
-	if (!line || fd < 0)
-		return (-1);
-	ret = 1;
-	if (!buf)
-		buf = ft_strnew(0);
-	while (ret > 0)
+	buf = ft_strchr(*gnl, '\n');
+	tmp = NULL;
+	if (buf)
 	{
-		if ((str = ft_strchr(buf, '\n')) != NULL)
-		{
-			*str = 0;
-			*line = ft_strdup(buf);
-			ft_memmove(buf, str + 1, ft_strlen(str + 1) + 1);
-			return (1);
-		}
-		buf = biggerbuf(fd, buf, &ret);
+		if (!(newline = ft_strndup(*gnl, buf - *gnl)))
+			return (NULL);
+		tmp = *gnl;
+		if (!(*gnl = ft_strdup(buf + 1)))
+			return (NULL);
+		free(tmp);
 	}
-	if (ret == 0)
-		*line = ft_strnew(0);
-	return (ret);
+	else if (!(newline = ft_strdup(*gnl)))
+		return (NULL);
+	if (!(*gnl) || !tmp)
+	{
+		free(*gnl);
+		*gnl = NULL;
+	}
+	return (newline);
+}
+
+int				get_next_line(const int fd, char **line)
+{
+	static char	*gnl = NULL;
+	char		*buf;
+
+	if (fd < 0 || !line || BUFF_SIZE <= 0 || !(buf = ft_strnew(BUFF_SIZE + 1)) \
+			|| read(fd, buf, 0) == -1 || (gnl == NULL && !(gnl = ft_strnew(0))))
+		return (-1);
+	if (!(read_gnl(&gnl, buf, fd)))
+		return (-1);
+	if (*gnl)
+	{
+		if (!(*line = stock_line(&gnl)))
+			return (-1);
+		return (1);
+	}
+	return (0);
 }
