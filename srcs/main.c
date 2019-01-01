@@ -6,7 +6,7 @@
 /*   By: aibatyrb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/28 19:56:21 by aibatyrb          #+#    #+#             */
-/*   Updated: 2018/12/30 20:02:59 by aibatyrb         ###   ########.fr       */
+/*   Updated: 2019/01/01 21:09:44 by dilaouid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int													main(int argc, char **argv)
 	char		**board;
 	int			nb;
 
-	if (argc == 1)
+	if (argc != 2)
 	{
 		ft_putendl("usage: fillit source_file");
 		return (0);
