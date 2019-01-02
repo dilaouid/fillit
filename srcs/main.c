@@ -6,7 +6,7 @@
 /*   By: aibatyrb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/28 19:56:21 by aibatyrb          #+#    #+#             */
-/*   Updated: 2019/01/02 15:15:37 by aibatyrb         ###   ########.fr       */
+/*   Updated: 2019/01/02 15:36:08 by dilaouid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int													main(int argc, char **argv)
 	char		**board;
 	int			nb;
 	int			i;
-	int			j;
+//	int			j;
 
 	if (argc != 2)
 	{
@@ -30,35 +30,38 @@ int													main(int argc, char **argv)
 	board = create_tetriminos(argv[1], board);
 	nb = check_tetrinumber(board);
 	tetri = ft_tetri(nb, open(argv[1], O_RDONLY));
+	while (1)
+	{}
 	matrice = resolv(tetri, nb);
 	ft_print(matrice);
+	i = 0;
+/*	while (matrice[i])
+	{
+		ft_putendl("matrice not null");
+		free(matrice[i]);
+		i++;
+	}
+	while (1)
+	{}
 	i = 0;
 	while (tetri[i])
 	{
 		j = 0;
 		while (tetri[i][j])
 		{
-			free(tetri[i][j]);
-			j++;
+			ft_putendl("tetri not null");
+			free(tetri[i][j++]);
 		}
 		free(tetri[i]);
 		i++;
-	}
-	free(tetri);
 	i = 0;
-	while (matrice[i])
-	{
-		free(matrice[i]);
-		i++;
 	}
-	free(matrice);
-	i = 0;
 	while (board[i])
 	{
-		free(board[i]);
-		i++;
+		ft_putendl("board not null");
+		free(board[i++]);
 	}
-	free(board);
+	ft_putendl("here"); */
 	while (1)
 	{}
 	return (0);
