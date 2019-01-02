@@ -6,7 +6,7 @@
 /*   By: aibatyrb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/28 20:39:53 by aibatyrb          #+#    #+#             */
-/*   Updated: 2018/12/30 19:23:52 by aibatyrb         ###   ########.fr       */
+/*   Updated: 2019/01/02 13:44:43 by aibatyrb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,17 @@ t_coord	ft_else(t_coord q, int nb)
 		q = ft_nul(q, 0);
 	else if (--q.n != -1)
 	{
-		q.occ = ft_occurence(q.matrice, 'A' + q.n);
+		q = ft_occurence(q.matrice, 'A' + q.n, q);
 		ft_clear(q.matrice, q.n);
-		if (q.occ[1] < q.sqrt)
+		if (q.occ1 < q.sqrt)
 		{
-			q.x = q.occ[0];
-			q.y = q.occ[1] + 1;
+			q.x = q.occ0;
+			q.y = q.occ1 + 1;
 		}
-		else if (q.occ[0] < q.sqrt)
+		else if (q.occ0 < q.sqrt)
 		{
 			q.y = 0;
-			q.x = q.occ[0] + 1;
+			q.x = q.occ0 + 1;
 		}
 		else
 			q = ft_nul(q, 0);
@@ -54,7 +54,8 @@ t_coord	ft_nul(t_coord q, int n)
 {
 	if (n == 0)
 	{
-		free(q.matrice);
+		if (q.matrice)
+			free(q.matrice);
 		if ((q.matrice = ft_matrice(++q.sqrt)) == NULL)
 			exit(0);
 	}

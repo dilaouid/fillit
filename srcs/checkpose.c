@@ -6,7 +6,7 @@
 /*   By: aibatyrb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/25 14:46:18 by aibatyrb          #+#    #+#             */
-/*   Updated: 2018/12/28 20:43:20 by aibatyrb         ###   ########.fr       */
+/*   Updated: 2019/01/02 13:48:19 by aibatyrb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,21 @@ char	**ft_matrice(int nb)
 	return (matrice);
 }
 
-int		*ft_occurence(char **tetri, char c)
+t_coord	ft_occurence(char **tetri, char c, t_coord q)
 {
-	int *xy;
-
-	if ((xy = (int *)malloc(sizeof(int) * 2)) == NULL)
-		return (NULL);
-	xy[0] = 0;
-	while (tetri[xy[0]])
+	q.occ0 = 0;
+	while (tetri[q.occ0])
 	{
-		xy[1] = 0;
-		while (tetri[xy[0]][xy[1]])
+		q.occ1 = 0;
+		while (tetri[q.occ0][q.occ1])
 		{
-			if (tetri[xy[0]][xy[1]] == c)
-				return (xy);
-			xy[1]++;
+			if (tetri[q.occ0][q.occ1] == c)
+				return (q);
+			q.occ1++;
 		}
-		xy[0]++;
+		q.occ0++;
 	}
-	return (xy);
+	return (q);
 }
 
 void	ft_clear(char **matrice, int nb)
@@ -81,26 +77,24 @@ void	ft_clear(char **matrice, int nb)
 
 int		ft_check_poses(char **tetri, t_coord q, int nb)
 {
-	int *occ;
 	int i;
 	int j;
 
 	q.lg = ft_strlen(q.matrice[0]);
 	i = 0;
-	occ = ft_occurence(tetri, '#');
 	while (tetri[i] && (j = 0) == 0)
 	{
 		while (tetri[i][j])
 		{
-			if (((j - occ[1] + q.y) < 0 || (j - occ[1] + q.y) >= q.lg ||
-	(i - occ[0] + q.x) < 0 || (i - occ[0] + q.x) >= q.lg) && tetri[i][j] == '#')
+			if (((j - q.occ1 + q.y) < 0 || (j - q.occ1 + q.y) >= q.lg ||
+	(i - q.occ0 + q.x) < 0 || (i - q.occ0 + q.x) >= q.lg) && tetri[i][j] == '#')
 				return (0);
 			else if (tetri[i][j] == '#' &&
-					q.matrice[i - occ[0] + q.x][j - occ[1] + q.y] != '.')
+					q.matrice[i - q.occ0 + q.x][j - q.occ1 + q.y] != '.')
 				return (0);
 			else if (tetri[i][j] == '#' &&
-					q.matrice[i - occ[0] + q.x][j - occ[1] + q.y] == '.')
-				q.matrice[i - occ[0] + q.x][j - occ[1] + q.y] = 'A' + nb;
+					q.matrice[i - q.occ0 + q.x][j - q.occ1 + q.y] == '.')
+				q.matrice[i - q.occ0 + q.x][j - q.occ1 + q.y] = 'A' + nb;
 			j++;
 		}
 		i++;

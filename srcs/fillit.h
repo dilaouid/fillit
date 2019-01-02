@@ -6,7 +6,7 @@
 /*   By: dilaouid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/22 14:06:16 by dilaouid          #+#    #+#             */
-/*   Updated: 2018/12/30 19:07:23 by aibatyrb         ###   ########.fr       */
+/*   Updated: 2019/01/02 13:48:11 by aibatyrb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ typedef struct	s_coord
 	int			nb;
 	int			x;
 	int			y;
-	int			*occ;
+	int			occ0;
+	int			occ1;
 	int			i;
 	int			j;
 	int			lg;
@@ -39,7 +40,7 @@ int				check_emptyboard(char **line);
 int				check_rows(char **line, int nbline);
 int				ft_check_poses(char **tetri, t_coord q, int nb);
 char			**ft_matrice(int nb);
-int				*ft_occurence(char **tetri, char c);
+t_coord			ft_occurence(char **tetri, char c, t_coord q);
 char			***ft_tetri(int nb, int fd);
 char			***ft_creation(int nb);
 void			ft_clear(char **matrice, int nb);

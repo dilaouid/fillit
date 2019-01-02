@@ -6,7 +6,7 @@
 #    By: dilaouid <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/30 14:56:21 by dilaouid          #+#    #+#              #
-#    Updated: 2018/12/30 20:01:31 by aibatyrb         ###   ########.fr        #
+#    Updated: 2019/01/02 14:06:51 by aibatyrb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CC		=	gcc
 
 OBJ 	= 	$(SRC:.c=.o)
 
-CFLAGS 	= 	-Wall -Wextra -Werror -Ilibft
+CFLAGS 	= 	-Wall -Wextra -Werror -Ilibft -g
 
 all: libft/ $(NAME)
 

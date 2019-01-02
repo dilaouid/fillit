@@ -6,7 +6,7 @@
 /*   By: aibatyrb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/25 16:34:21 by aibatyrb          #+#    #+#             */
-/*   Updated: 2018/12/29 16:20:05 by aibatyrb         ###   ########.fr       */
+/*   Updated: 2019/01/02 15:14:53 by aibatyrb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ char	***ft_tetri(int nb, int fd)
 	int		j;
 
 	tetri = ft_creation(nb);
+	line = NULL;
 	j = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
@@ -82,13 +83,13 @@ char	***ft_creation(int nb)
 		j = 0;
 		if ((tetri[i] = (char**)malloc(sizeof(char *) * 5)) == NULL)
 			return (NULL);
+		tetri[i][4] = 0;
 		while (j < 4)
 		{
 			if ((tetri[i][j] = (char*)malloc(sizeof(char) * 5)) == NULL)
 				return (NULL);
 			j++;
 		}
-		tetri[i][j] = 0;
 		i++;
 	}
 	return (tetri);
