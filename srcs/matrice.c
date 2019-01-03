@@ -6,7 +6,7 @@
 /*   By: aibatyrb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/25 16:34:21 by aibatyrb          #+#    #+#             */
-/*   Updated: 2019/01/02 15:14:53 by aibatyrb         ###   ########.fr       */
+/*   Updated: 2019/01/03 17:49:44 by dilaouid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@ char	***ft_tetri(int nb, int fd)
 				ft_strcpy(tetri[j][i], line);
 				i++;
 				free(line);
-				get_next_line(fd, &line);
+				if (i <= 4)
+					get_next_line(fd, &line);
 			}
 			j++;
 		}
-		else
+		if (line && j < nb)
 			free(line);
 	}
 	close(fd);
