@@ -6,20 +6,18 @@
 /*   By: aibatyrb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/28 19:56:21 by aibatyrb          #+#    #+#             */
-/*   Updated: 2019/01/03 17:50:26 by dilaouid         ###   ########.fr       */
+/*   Updated: 2019/01/05 10:41:20 by dilaouid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int													main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	char		***tetri;
 	char		**matrice;
 	char		**board;
 	int			nb;
-	int			i;
-//	int			j;
 
 	if (argc != 2)
 	{
@@ -32,35 +30,5 @@ int													main(int argc, char **argv)
 	tetri = ft_tetri(nb, open(argv[1], O_RDONLY));
 	matrice = resolv(tetri, nb);
 	ft_print(matrice);
-	i = 0;
-/*	while (matrice[i])
-	{
-		ft_putendl("matrice not null");
-		free(matrice[i]);
-		i++;
-	}
-	while (1)
-	{}
-	i = 0;
-	while (tetri[i])
-	{
-		j = 0;
-		while (tetri[i][j])
-		{
-			ft_putendl("tetri not null");
-			free(tetri[i][j++]);
-		}
-		free(tetri[i]);
-		i++;
-	i = 0;
-	}
-	while (board[i])
-	{
-		ft_putendl("board not null");
-		free(board[i++]);
-	}
-	ft_putendl("here"); */
-	while (1)
-	{}
 	return (0);
 }

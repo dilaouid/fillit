@@ -6,7 +6,7 @@
 /*   By: aibatyrb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/25 16:34:21 by aibatyrb          #+#    #+#             */
-/*   Updated: 2019/01/03 17:49:44 by dilaouid         ###   ########.fr       */
+/*   Updated: 2019/01/05 10:42:52 by dilaouid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ char	***ft_tetri(int nb, int fd)
 	int		j;
 
 	tetri = ft_creation(nb);
-	line = NULL;
 	j = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
@@ -28,8 +27,7 @@ char	***ft_tetri(int nb, int fd)
 		{
 			while (i < 4)
 			{
-				ft_strcpy(tetri[j][i], line);
-				i++;
+				ft_strcpy(tetri[j][i++], line);
 				free(line);
 				if (i <= 4)
 					get_next_line(fd, &line);

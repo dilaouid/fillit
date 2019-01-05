@@ -6,7 +6,7 @@
 /*   By: aibatyrb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/25 14:46:18 by aibatyrb          #+#    #+#             */
-/*   Updated: 2019/01/02 13:48:19 by aibatyrb         ###   ########.fr       */
+/*   Updated: 2019/01/05 10:38:53 by dilaouid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int		ft_check_poses(char **tetri, t_coord q, int nb)
 
 	q.lg = ft_strlen(q.matrice[0]);
 	i = 0;
+	q = ft_occurence(tetri, '#', q);
 	while (tetri[i] && (j = 0) == 0)
 	{
 		while (tetri[i][j])
